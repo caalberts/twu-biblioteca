@@ -21,6 +21,14 @@ public class Library {
     return books;
   }
 
+  public ArrayList<Book> listAvailableBooks() {
+    ArrayList<Book> availableBooks = new ArrayList<Book>();
+    for (Book book : books) {
+      if (book.isAvailable()) availableBooks.add(book);
+    }
+    return availableBooks;
+  }
+
   public void addNewBook(Book newBook) {
     books.add(newBook);
   }
