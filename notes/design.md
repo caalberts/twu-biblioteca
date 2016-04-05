@@ -11,6 +11,11 @@ Role:
 
 Attributes
 - Library
+- Prompt message
+- Input message
+Methods
+- Start application
+
 
 ### Library
 Role:
