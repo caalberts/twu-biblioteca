@@ -7,11 +7,13 @@ public class Book {
   private String title;
   private String author;
   private int year;
+  private boolean available;
 
   Book(String bookTitle, String bookAuthor, int bookYear) {
     title = bookTitle;
     author = bookAuthor;
     year = bookYear;
+    available = true;
   }
 
   public String getTitle() {
@@ -22,5 +24,8 @@ public class Book {
   }
   public int getYear() {
     return year;
+  }
+  public boolean isAvailable() {
+    return available;
   }
 }
