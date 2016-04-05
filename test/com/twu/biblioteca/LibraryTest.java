@@ -39,4 +39,13 @@ public class LibraryTest {
     lib.checkout(lib.listBooks().get(0));
     assertFalse(lib.checkout(lib.listBooks().get(0)));
   }
+
+  @Test
+  public void listAvailableBooks() {
+    Library lib = new Library();
+    int totalBooks = lib.listBooks().size();
+    lib.checkout(lib.listBooks().get(0));
+    lib.checkout(lib.listBooks().get(2));
+    assertEquals(lib.listAvailableBooks().size(), totalBooks - 2);
+  }
 }
