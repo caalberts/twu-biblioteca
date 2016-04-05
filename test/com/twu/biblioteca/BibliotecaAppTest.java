@@ -9,12 +9,6 @@ import static org.junit.Assert.*;
  */
 public class BibliotecaAppTest {
   @Test
-  public void applicationShouldStartWithWelcomeMessage() {
-    BibliotecaApp app = new BibliotecaApp();
-    assertEquals(app.getOutput(), "Welcome to Biblioteca.");
-  }
-
-  @Test
   public void applicationShouldStartWithALibrary() {
     BibliotecaApp app = new BibliotecaApp();
     assertTrue(app.library.listBooks().size() > 0);
