@@ -2,6 +2,8 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,5 +24,17 @@ public class LibraryTest {
     Book newBook = new Book("This is a new book", "me", 2016);
     lib.addNewBook(newBook);
     assertTrue(lib.listBooks().contains(newBook));
-  }w
+  }
+
+  @Test
+  public void checkoutBookFromLibrary() {
+    Library lib = new Library();
+    assertTrue(lib.checkout(lib.listBooks().get(0)));
+    assertFalse(lib.listBooks().get(0).isAvailable());
+  }
+
+  @Test
+  public void failedCheckout() {
+
+  }
 }

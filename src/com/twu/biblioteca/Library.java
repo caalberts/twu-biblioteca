@@ -24,4 +24,8 @@ public class Library {
   public void addNewBook(Book newBook) {
     books.add(newBook);
   }
+
+  public boolean checkout(Book book) {
+    return book.confirmCheckout();
+  }
 }
