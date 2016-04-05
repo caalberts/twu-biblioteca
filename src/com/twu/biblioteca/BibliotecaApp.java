@@ -4,6 +4,7 @@ public class BibliotecaApp {
 
   private String promptMessage = "";
   private String input = "";
+
   private String output = "Welcome to Biblioteca.";
   Helper helper = new Helper();
   Library library = new Library();
@@ -31,6 +32,10 @@ public class BibliotecaApp {
                "Publication Year: " + book.getYear() +"\n";
       helper.displayText(output);
     }
+  }
+
+  public String getOutput() {
+    return output;
   }
 
 }

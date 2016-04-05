@@ -11,7 +11,7 @@ public class BibliotecaAppTest {
   @Test
   public void applicationShouldStartWithWelcomeMessage() {
     BibliotecaApp app = new BibliotecaApp();
-    assertEquals(app.getPromptMessage(), "Welcome to Biblioteca.");
+    assertEquals(app.getOutput(), "Welcome to Biblioteca.");
   }
 
   @Test
