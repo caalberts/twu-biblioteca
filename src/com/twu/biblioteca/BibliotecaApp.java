@@ -14,12 +14,18 @@ public class BibliotecaApp {
 
     displayBooks(library.listBooks());
     while (!userCommand.equals("Quit")) {
-      userCommand = helper.getUserInput("How can I help you?\nType 'Quit' to leave Biblioteca.");
+      if (userCommand.equals("List Books")) {
+        displayBooks(library.listAvailableBooks());
+      } else {
+        System.out.println("Select a valid option!");
+      }
+      userCommand = askUserForCommand();
     }
     return;
   }
 
   public void displayBooks(ArrayList<Book> books) {
+    System.out.println("Books available for loan");
     for (Book book : books) {
       String bookDetails = book.getTitle() + " by " +
                book.getAuthor() +
@@ -27,5 +33,13 @@ public class BibliotecaApp {
       System.out.println(bookDetails);
     }
     System.out.println("\n");
+  }
+
+  public String askUserForCommand() {
+    String prompt = "How can I help you?\n" +
+                    "Type any of the following commands:\n" +
+                    "1. 'List Books'\n" +
+                    "2. 'Quit'\n";
+    return helper.getUserInput(prompt);
   }
 }
