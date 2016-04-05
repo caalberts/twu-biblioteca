@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  */
 public class LibraryTest {
   @Test
-  public void listBooksInLibrary() {
+  public void listAllBooksInLibrary() {
     Library lib = new Library();
 
     assertTrue(lib.listBooks().size() > 0);
@@ -19,8 +19,8 @@ public class LibraryTest {
   public void addNewBookToLibrary() {
     Library lib = new Library();
 
-    Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
-    lib.addNewBook(harryPotter);
-    assertTrue(lib.listBooks().contains(harryPotter));
-  }
+    Book newBook = new Book("This is a new book", "me", 2016);
+    lib.addNewBook(newBook);
+    assertTrue(lib.listBooks().contains(newBook));
+  }w
 }
