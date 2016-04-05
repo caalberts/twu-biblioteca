@@ -16,6 +16,15 @@ public class Book {
     available = true;
   }
 
+  public boolean confirmCheckout() {
+    if (available) {
+      available = false;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public String getTitle() {
     return title;
   }

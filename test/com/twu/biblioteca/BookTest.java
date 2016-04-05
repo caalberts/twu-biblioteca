@@ -21,4 +21,17 @@ public class BookTest {
     Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
     assertTrue(harryPotter.isAvailable());
   }
+
+  @Test
+  public void successfulCheckout() {
+    Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
+    assertTrue(harryPotter.confirmCheckout());
+  }
+
+  @Test
+  public void failedCheckout() {
+    Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
+    harryPotter.confirmCheckout();
+    assertFalse(harryPotter.confirmCheckout());
+  }
 }
