@@ -13,4 +13,10 @@ public class BibliotecaAppTest {
     BibliotecaApp app = new BibliotecaApp();
     assertEquals(app.getPromptMessage(), "Welcome to Biblioteca.");
   }
+
+  @Test
+  public void applicationShouldStartWithALibrary() {
+    BibliotecaApp app = new BibliotecaApp();
+    assertTrue(app.library.listBooks().size() > 0);
+  }
 }
