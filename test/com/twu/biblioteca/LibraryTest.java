@@ -35,6 +35,8 @@ public class LibraryTest {
 
   @Test
   public void failedCheckout() {
-
+    Library lib = new Library();
+    lib.checkout(lib.listBooks().get(0));
+    assertFalse(lib.checkout(lib.listBooks().get(0)));
   }
 }
