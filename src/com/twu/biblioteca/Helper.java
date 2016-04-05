@@ -22,4 +22,8 @@ public class Helper {
 
     return inputLine;
   }
+
+  public void displayText(String output) {
+    System.out.println(output);
+  }
 }
