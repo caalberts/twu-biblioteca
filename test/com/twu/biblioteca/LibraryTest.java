@@ -29,8 +29,10 @@ public class LibraryTest {
   @Test
   public void checkoutBookFromLibrary() {
     Library lib = new Library();
-    assertTrue(lib.checkout(lib.listBooks().get(0)));
-    assertFalse(lib.listBooks().get(0).isAvailable());
+//    assertTrue(lib.checkout(lib.listBooks().get(0)));
+//    assertFalse(lib.listBooks().get(0).isAvailable());
+    assertTrue(lib.checkout("A Game of Thrones"));
+    assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
   }
 
   @Test
