@@ -29,11 +29,22 @@ public class Library {
     return availableBooks;
   }
 
+  public Book findBookByTitle (String title) {
+    Book desiredBook = null;
+    for (Book book : listBooks()) {
+      if (book.getTitle() == title) {
+        desiredBook = book;
+      }
+    }
+    return desiredBook;
+  }
+
   public void addNewBook(Book newBook) {
     inventory.add(newBook);
   }
 
-  public boolean checkout(Book book) {
+  public boolean checkout(String title) {
+    Book book = findBookByTitle(title);
     return book.confirmCheckout();
   }
 }

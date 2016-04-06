@@ -29,8 +29,6 @@ public class LibraryTest {
   @Test
   public void checkoutBookFromLibrary() {
     Library lib = new Library();
-//    assertTrue(lib.checkout(lib.listBooks().get(0)));
-//    assertFalse(lib.listBooks().get(0).isAvailable());
     assertTrue(lib.checkout("A Game of Thrones"));
     assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
   }
@@ -38,8 +36,8 @@ public class LibraryTest {
   @Test
   public void failedCheckout() {
     Library lib = new Library();
-    lib.checkout(lib.listBooks().get(0));
-    assertFalse(lib.checkout(lib.listBooks().get(0)));
+    lib.checkout("A Game of Thrones");
+    assertFalse(lib.checkout("A Game of Thrones"));
   }
 
   @Test
