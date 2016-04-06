@@ -6,22 +6,37 @@ import java.util.ArrayList;
  * Created by albert on 5/4/16.
  */
 public class Library {
-  private ArrayList<Book> inventory = new ArrayList<Book>();
+  private ArrayList<Book> availableBooks = new ArrayList<Book>();
+  private ArrayList<Book> loanedBooks = new ArrayList<Book>();
 
-  public ArrayList<Book> listBooks() {
-    return inventory;
+  public ArrayList<Book> listAllBooks() {
+    ArrayList<Book> allBooks = new ArrayList<Book>();
+    allBooks.addAll(availableBooks);
+    allBooks.addAll(loanedBooks);
+    return allBooks;
   }
 
   public ArrayList<Book> listAvailableBooks() {
-    ArrayList<Book> availableBooks = new ArrayList<Book>();
-    for (Book book : inventory) {
-      if (book.isAvailable()) availableBooks.add(book);
-    }
     return availableBooks;
   }
 
+  public ArrayList<Book> listLoanedBooks() {
+    return loanedBooks;
+  }
+
+  public boolean isAvailable(String title) {
+    Book book = findBookByTitle(title);
+
+    return availableBooks.contains(book) && !loanedBooks.contains(book);
+  }
+
+  public boolean isLoaned(String title) {
+    Book book = findBookByTitle(title);
+    return loanedBooks.contains(book);
+  }
+
   public Book findBookByTitle (String title) {
-    for (Book book : this.listBooks()) {
+    for (Book book : listAllBooks()) {
       if (book.getTitle().equals(title)) {
         return book;
       }
@@ -30,26 +45,18 @@ public class Library {
   }
 
   public void addNewBook(Book newBook) {
-    inventory.add(newBook);
+    availableBooks.add(newBook);
   }
 
-  public boolean checkout(String title) {
+  public void checkout(String title) {
     Book book = findBookByTitle(title);
-
-    boolean checkoutStatus = false;
-    if (book != null) {
-      checkoutStatus = book.confirmCheckout();
-    }
-    return checkoutStatus;
+    availableBooks.remove(availableBooks.indexOf(book));
+    loanedBooks.add(book);
   }
 
-  public boolean returnBook(String title) {
+  public void returnBook(String title) {
     Book book = findBookByTitle(title);
-
-    boolean returnStatus = false;
-    if (book != null) {
-      returnStatus = book.confirmReturn();
-    }
-    return returnStatus;
+    loanedBooks.remove(loanedBooks.indexOf(book));
+    availableBooks.add(book);
   }
 }

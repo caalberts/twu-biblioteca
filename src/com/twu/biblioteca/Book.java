@@ -13,25 +13,6 @@ public class Book {
     title = bookTitle;
     author = bookAuthor;
     year = bookYear;
-    available = true;
-  }
-
-  public boolean confirmCheckout() {
-    if (available) {
-      available = false;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public boolean confirmReturn() {
-    if (!available) {
-      available = true;
-      return true;
-    } else {
-      return false;
-    }
   }
 
   public String getTitle() {
@@ -42,8 +23,5 @@ public class Book {
   }
   public int getYear() {
     return year;
-  }
-  public boolean isAvailable() {
-    return available;
   }
 }

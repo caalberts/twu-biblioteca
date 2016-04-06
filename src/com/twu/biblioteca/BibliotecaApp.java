@@ -23,8 +23,8 @@ public class BibliotecaApp {
         case "Checkout":
           String checkoutBookTitle = helper.getUserInput("Which book would you like to borrow?");
 
-          boolean successfulCheckout = library.checkout(checkoutBookTitle);
-          if (successfulCheckout) {
+          if (library.isAvailable(checkoutBookTitle)) {
+            library.checkout(checkoutBookTitle);
             System.out.println("Thank you, enjoy the book.");
           } else {
             System.out.println("That book is not available.");
@@ -33,8 +33,9 @@ public class BibliotecaApp {
           break;
         case "Return":
           String returnBookTitle = helper.getUserInput("Which book would you like to return?");
-          boolean successfulReturn = library.returnBook(returnBookTitle);
-          if (successfulReturn) {
+
+          if (library.isLoaned(returnBookTitle)) {
+            library.returnBook(returnBookTitle);
             System.out.println("Thank you for returning the book.");
           } else {
             System.out.println("That is not a valid book to return.");

@@ -3,8 +3,6 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 /**
@@ -26,39 +24,47 @@ public class LibraryTest {
 
   @Test
   public void listAllBooksInLibrary() {
-    assertTrue(lib.listBooks().size() == 6);
+    assertTrue(lib.listAvailableBooks().size() == 6);
+    assertTrue(lib.listLoanedBooks().size() == 0);
   }
 
   @Test
   public void addNewBookToLibrary() {
     Book newBook = new Book("This is a new book", "me", 2016);
     lib.addNewBook(newBook);
-    assertTrue(lib.listBooks().contains(newBook));
+    assertTrue(lib.listAllBooks().contains(newBook));
   }
 
   @Test
-  public void checkoutBookFromLibrary() {
-    assertTrue(lib.checkout("A Game of Thrones"));
-    assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
+  public void checkIfBookIsAvailable() {
+    assertTrue(lib.isAvailable("A Game of Thrones"));
+    assertFalse(lib.isAvailable("A Gme of Thorns"));
   }
 
   @Test
-  public void checkoutFailsWhenBookIsNotAvailable() {
+  public void checkIfBookIsLoaned() {
     lib.checkout("A Game of Thrones");
-    assertFalse(lib.checkout("A Game of Thrones"));
+    assertTrue(lib.isLoaned("A Game of Thrones"));
+    assertFalse(lib.isLoaned("Test Driven Development"));
   }
 
-  @Test
-  public void checkoutFailsWhenBookTitleIsNotFound() {
-    assertFalse(lib.checkout("A Gme of Thorns"));
-  }
 
   @Test
-  public void listAvailableBooks() {
-    int totalBooks = lib.listBooks().size();
+  public void checkoutBook() {
     lib.checkout("A Game of Thrones");
-    lib.checkout("Test Driven Development");
-    assertEquals(lib.listAvailableBooks().size(), totalBooks - 2);
+    assertEquals(lib.listAvailableBooks().size(), 5);
+    assertEquals(lib.listLoanedBooks().size(), 1);
+    assertFalse(lib.isAvailable("A Game of Thrones"));
+  }
+
+  @Test
+  public void returnBook() {
+    lib.checkout("A Game of Thrones");
+    assertFalse(lib.isAvailable("A Game of Thrones"));
+    lib.returnBook("A Game of Thrones");
+    assertEquals(lib.listAvailableBooks().size(), 6);
+    assertEquals(lib.listLoanedBooks().size(), 0);
+    assertTrue(lib.isAvailable("A Game of Thrones"));
   }
 
   @Test
@@ -66,27 +72,5 @@ public class LibraryTest {
     Book book = lib.findBookByTitle("A Game of Thrones");
     assertEquals(book.getAuthor(), "George R. R. Martin");
     assertEquals(book.getYear(), 1996);
-  }
-
-  @Test
-  public void returnBookToLibrary() {
-    lib.checkout("A Game of Thrones");
-    assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
-    lib.returnBook("A Game of Thrones");
-    assertTrue(lib.findBookByTitle("A Game of Thrones").isAvailable());
-  }
-
-  @Test
-  public void returnFailsWhenTitleIsMisspelt() {
-    lib.checkout("A Game of Thrones");
-    assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
-    assertFalse(lib.returnBook("A Gme of Thrnes"));
-    assertFalse(lib.findBookByTitle("A Game of Thrones").isAvailable());
-  }
-
-  @Test
-  public void returnFailsWhenBookIsNotCheckedOut() {
-    assertTrue(lib.findBookByTitle("A Game of Thrones").isAvailable());
-    assertFalse(lib.returnBook("A Game of Thrones"));
   }
 }
