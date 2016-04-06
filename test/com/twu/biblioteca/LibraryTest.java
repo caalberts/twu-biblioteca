@@ -48,4 +48,12 @@ public class LibraryTest {
     lib.checkout(lib.listBooks().get(2));
     assertEquals(lib.listAvailableBooks().size(), totalBooks - 2);
   }
+
+  @Test
+  public void findABookByItsTitle() {
+    Library lib = new Library();
+    Book book = lib.findBookByTitle("A Game of Thrones");
+    assertEquals(book.getAuthor(), "George R. R. Martin");
+    assertEquals(book.getYear(), 1996);
+  }
 }
