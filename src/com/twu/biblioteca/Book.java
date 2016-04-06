@@ -25,6 +25,15 @@ public class Book {
     }
   }
 
+  public boolean confirmReturn() {
+    if (!available) {
+      available = true;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public String getTitle() {
     return title;
   }

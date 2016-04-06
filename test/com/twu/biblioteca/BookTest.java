@@ -34,4 +34,20 @@ public class BookTest {
     harryPotter.confirmCheckout();
     assertFalse(harryPotter.confirmCheckout());
   }
+
+  @Test
+  public void successfulReturn() {
+    Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
+    harryPotter.confirmCheckout();
+    assertFalse(harryPotter.isAvailable());
+    assertTrue(harryPotter.confirmReturn());
+    assertTrue(harryPotter.isAvailable());
+  }
+
+  @Test
+  public void invalidReturnWhenBookIsNotCheckedout() {
+    Book harryPotter = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
+    assertTrue(harryPotter.isAvailable());
+    assertFalse(harryPotter.confirmReturn());
+  }
 }
