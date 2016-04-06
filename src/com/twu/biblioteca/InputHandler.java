@@ -8,17 +8,20 @@ public class InputHandler {
   private Library lib;
   private String output = "";
 
-  public String process (String input, Library library) {
+  InputHandler(Library library) {
     lib = library;
+  }
+
+  public String process (String input) {
     switch (input) {
       case "List Books":
         handleListBooks();
         break;
       case "Checkout":
-        handleCheckout();
+        handleCheckout(helper.getUserInput("Which book would you like to borrow?"));
         break;
       case "Return":
-        handleReturn();
+        handleReturn(helper.getUserInput("Which book would you like to return?"));
         break;
       case "Quit":
         output = "";
@@ -29,7 +32,7 @@ public class InputHandler {
     return output;
   }
 
-  private void handleListBooks() {
+  public void handleListBooks() {
     output = "Books available for loan:\n";
     for (Book book : lib.listAvailableBooks()) {
       String bookDetails = book.getTitle() + " by " +
@@ -40,9 +43,7 @@ public class InputHandler {
     output += "\n";
   }
 
-  private void handleCheckout() {
-    String checkoutBookTitle = helper.getUserInput("Which book would you like to borrow?");
-
+  public void handleCheckout(String checkoutBookTitle) {
     if (lib.isAvailable(checkoutBookTitle)) {
       lib.checkout(checkoutBookTitle);
       output = "Thank you, enjoy the book.";
@@ -51,9 +52,7 @@ public class InputHandler {
     }
   }
 
-  private void handleReturn() {
-    String returnBookTitle = helper.getUserInput("Which book would you like to return?");
-
+  public void handleReturn(String returnBookTitle) {
     if (lib.isLoaned(returnBookTitle)) {
       lib.returnBook(returnBookTitle);
       output = "Thank you for returning the book.";

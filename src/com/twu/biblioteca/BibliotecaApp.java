@@ -2,13 +2,14 @@ package com.twu.biblioteca;
 
 public class BibliotecaApp {
   private String userCommand = "";
-  private InputHandler handler = new InputHandler();
+  private InputHandler handler;
   private Helper helper = new Helper();
   private Library library = new Library();
 
 
   public void start() {
     initializeLibrary();
+    handler = new InputHandler(library);
 
     System.out.println("Welcome to Biblioteca.\n");
 
@@ -21,7 +22,7 @@ public class BibliotecaApp {
           "4. 'Quit'\n";
       userCommand = helper.getUserInput(prompt);
 
-      String output = handler.process(userCommand, library);
+      String output = handler.process(userCommand);
       System.out.println(output);
     }
     return;
