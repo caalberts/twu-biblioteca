@@ -1,64 +1,30 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-
 public class BibliotecaApp {
   private String userCommand = "";
-
+  private InputHandler handler = new InputHandler();
   private Helper helper = new Helper();
   private Library library = new Library();
+
 
   public void start() {
     initializeLibrary();
 
     System.out.println("Welcome to Biblioteca.\n");
 
-    userCommand = askUserForCommand();
-
     while (!userCommand.equals("Quit")) {
-      switch (userCommand) {
-        case "List Books":
-          ListBooks.display(library.listAvailableBooks());
-          break;
-        case "Checkout":
-          String checkoutBookTitle = helper.getUserInput("Which book would you like to borrow?");
+      String prompt = "How can I help you?\n" +
+          "Type any of the following commands:\n" +
+          "1. 'List Books'\n" +
+          "2. 'Checkout'\n" +
+          "3. 'Return'\n" +
+          "4. 'Quit'\n";
+      userCommand = helper.getUserInput(prompt);
 
-          if (library.isAvailable(checkoutBookTitle)) {
-            library.checkout(checkoutBookTitle);
-            System.out.println("Thank you, enjoy the book.");
-          } else {
-            System.out.println("That book is not available.");
-            ListBooks.display(library.listAvailableBooks());
-          }
-          break;
-        case "Return":
-          String returnBookTitle = helper.getUserInput("Which book would you like to return?");
-
-          if (library.isLoaned(returnBookTitle)) {
-            library.returnBook(returnBookTitle);
-            System.out.println("Thank you for returning the book.");
-          } else {
-            System.out.println("That is not a valid book to return.");
-          }
-          break;
-        case "Quit":
-          break;
-        default:
-          System.out.println("Select a valid option!");
-      }
-      userCommand = askUserForCommand();
+      String output = handler.process(userCommand, library);
+      System.out.println(output);
     }
     return;
-  }
-
-  private String askUserForCommand() {
-    String prompt = "How can I help you?\n" +
-                    "Type any of the following commands:\n" +
-                    "1. 'List Books'\n" +
-                    "2. 'Checkout'\n" +
-                    "3. 'Return'\n" +
-                    "4. 'Quit'\n";
-    return helper.getUserInput(prompt);
   }
 
   private void initializeLibrary() {
