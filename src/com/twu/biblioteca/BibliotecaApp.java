@@ -18,17 +18,26 @@ public class BibliotecaApp {
         case "List Books":
           ListBooks.display(library.listAvailableBooks());
           break;
-        case "Checkout": {
-          String bookTitle = helper.getUserInput("Which book would you like to borrow?");
-          System.out.println(bookTitle);
-          boolean successfulCheckout = library.checkout(bookTitle);
+        case "Checkout":
+          String checkoutBookTitle = helper.getUserInput("Which book would you like to borrow?");
+
+          boolean successfulCheckout = library.checkout(checkoutBookTitle);
           if (successfulCheckout) {
             System.out.println("Thank you, enjoy the book.");
           } else {
             System.out.println("That book is not available.");
             ListBooks.display(library.listAvailableBooks());
           }
-        }
+          break;
+        case "Return":
+          String returnBookTitle = helper.getUserInput("Which book would you like to return?");
+          boolean successfulReturn = library.returnBook(returnBookTitle);
+          if (successfulReturn) {
+            System.out.println("Thank you for returning the book.");
+          } else {
+            System.out.println("That is not a valid book to return.");
+          }
+          break;
         case "Quit":
           break;
         default:

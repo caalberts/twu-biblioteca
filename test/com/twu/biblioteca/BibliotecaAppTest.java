@@ -13,4 +13,6 @@ public class BibliotecaAppTest {
     BibliotecaApp app = new BibliotecaApp();
     assertTrue(app.library.listBooks().size() > 0);
   }
+
+  //TODO mock userCommand and test app
 }

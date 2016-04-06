@@ -51,4 +51,14 @@ public class Library {
     }
     return checkoutStatus;
   }
+
+  public boolean returnBook(String title) {
+    Book book = findBookByTitle(title);
+
+    boolean returnStatus = false;
+    if (book != null) {
+      returnStatus = book.confirmReturn();
+    }
+    return returnStatus;
+  }
 }
