@@ -30,13 +30,12 @@ public class Library {
   }
 
   public Book findBookByTitle (String title) {
-    Book desiredBook = null;
-    for (Book book : listBooks()) {
-      if (book.getTitle() == title) {
-        desiredBook = book;
+    for (Book book : this.listBooks()) {
+      if (book.getTitle().equals(title)) {
+        return book;
       }
     }
-    return desiredBook;
+    return null;
   }
 
   public void addNewBook(Book newBook) {
@@ -45,6 +44,11 @@ public class Library {
 
   public boolean checkout(String title) {
     Book book = findBookByTitle(title);
-    return book.confirmCheckout();
+
+    boolean checkoutStatus = false;
+    if (book != null) {
+      checkoutStatus = book.confirmCheckout();
+    }
+    return checkoutStatus;
   }
 }

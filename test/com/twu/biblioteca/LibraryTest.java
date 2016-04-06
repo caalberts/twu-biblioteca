@@ -44,8 +44,8 @@ public class LibraryTest {
   public void listAvailableBooks() {
     Library lib = new Library();
     int totalBooks = lib.listBooks().size();
-    lib.checkout(lib.listBooks().get(0));
-    lib.checkout(lib.listBooks().get(2));
+    lib.checkout("A Game of Thrones");
+    lib.checkout("Test Driven Development");
     assertEquals(lib.listAvailableBooks().size(), totalBooks - 2);
   }
 
