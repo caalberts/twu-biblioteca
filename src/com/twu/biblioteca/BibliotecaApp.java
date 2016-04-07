@@ -4,12 +4,12 @@ public class BibliotecaApp {
   private InputHandler handler;
   private Helper helper = new Helper();
   private Library library = new Library();
-
+  private User user = new User("John Doe", "john@doe.com", 87654321);
 
   public void start() {
     String userCommand = "";
     initializeLibrary();
-    handler = new InputHandler(library, helper);
+    handler = new InputHandler(library, helper, user);
 
     System.out.println("Welcome to Biblioteca.\n");
 
@@ -22,7 +22,8 @@ public class BibliotecaApp {
           "4. 'Checkout Movie'\n" +
           "5. 'Return Book'\n" +
           "6. 'Return Movie'\n" +
-          "7. 'Quit'\n";
+          "7. 'View Profile'\n" +
+          "8. 'Quit'\n";
       userCommand = helper.getUserInput(prompt);
 
       String output = handler.process(userCommand);

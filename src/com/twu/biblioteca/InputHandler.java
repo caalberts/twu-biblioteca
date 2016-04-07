@@ -6,10 +6,12 @@ package com.twu.biblioteca;
 public class InputHandler {
   private Helper helper;
   private Library lib;
+  private User user;
 
-  InputHandler(Library library, Helper help) {
+  InputHandler(Library library, Helper help, User person) {
     lib = library;
     helper = help;
+    user = person;
   }
 
   public String process (String input) {
@@ -32,6 +34,9 @@ public class InputHandler {
         break;
       case "Return Movie":
         output = handleReturnMovie(helper.getUserInput("Which movie would you like to return?"));
+        break;
+      case "View Profile":
+        output = handleViewProfile();
         break;
       case "Quit":
         output = "";
@@ -100,5 +105,12 @@ public class InputHandler {
     } else {
       return "That is not a valid movie to return.";
     }
+  }
+
+  public String handleViewProfile() {
+    String buffer = "Name: " + user.getName() + "\n" +
+                    "Email: " + user.getEmail() + "\n" +
+                    "Phone: " + user.getPhone();
+    return buffer;
   }
 }

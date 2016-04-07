@@ -12,16 +12,18 @@ public class InputHandlerTest {
   Library lib;
   InputHandler handler;
   Helper helper;
+  User user;
 
   @Before
   public void prepareTest() {
     lib = new Library();
     helper = new Helper();
+    user = new User("John Doe", "john@doe.com", 87654321);
     lib.addNewBook(new Book("Head First Java", "Kathy Sierra", 2005));
     lib.addNewBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
     lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
     lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
-    handler = new InputHandler(lib, helper);
+    handler = new InputHandler(lib, helper, user);
   }
 
   @Test
@@ -73,6 +75,17 @@ public class InputHandlerTest {
     assertEquals(handler.handleCheckoutMovie("Reservoir Dogs"), "Thank you, enjoy the movie.");
     assertEquals(handler.handleReturnMovie("Reservoir Dogs"), "Thank you for returning the movie.");
     assertEquals(handler.handleReturnMovie("Inglorious Basterds"), "That is not a valid movie to return.");
+  }
+
+  @Test
+  public void viewUserProfile() {
+    String result = handler.process("View Profile");
+    assertTrue(result.contains("Name"));
+    assertTrue(result.contains("John Doe"));
+    assertTrue(result.contains("Email"));
+    assertTrue(result.contains("john@doe.com"));
+    assertTrue(result.contains("Phone"));
+    assertTrue(result.contains("87654321"));
   }
 
   @Test
