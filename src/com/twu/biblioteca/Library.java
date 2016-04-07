@@ -9,19 +9,37 @@ public class Library {
   private ArrayList<Book> availableBooks = new ArrayList<Book>();
   private ArrayList<Book> loanedBooks = new ArrayList<Book>();
 
-  public ArrayList<Book> listAllBooks() {
+  private ArrayList<Movie> availableMovies = new ArrayList<Movie>();
+  private ArrayList<Movie> loanedMovies = new ArrayList<Movie>();
+
+  public ArrayList<Book> getAvailableBooks() {
+    return availableBooks;
+  }
+
+  public ArrayList<Book> getLoanedBooks() {
+    return loanedBooks;
+  }
+
+  public ArrayList<Book> getAllBooks() {
     ArrayList<Book> allBooks = new ArrayList<Book>();
     allBooks.addAll(availableBooks);
     allBooks.addAll(loanedBooks);
     return allBooks;
   }
 
-  public ArrayList<Book> listAvailableBooks() {
-    return availableBooks;
+  public ArrayList<Movie> getAvailableMovies() {
+    return availableMovies;
   }
 
-  public ArrayList<Book> listLoanedBooks() {
-    return loanedBooks;
+  public ArrayList<Movie> getLoanedMovies() {
+    return loanedMovies;
+  }
+
+  public ArrayList<Movie> getAllMovies() {
+    ArrayList<Movie> allMovies = new ArrayList<Movie>();
+    allMovies.addAll(availableMovies);
+    allMovies.addAll(loanedMovies);
+    return allMovies;
   }
 
   public boolean isAvailable(String title) {
@@ -36,7 +54,7 @@ public class Library {
   }
 
   public Book findBookByTitle (String title) {
-    for (Book book : listAllBooks()) {
+    for (Book book : getAllBooks()) {
       if (book.getTitle().equals(title)) {
         return book;
       }
@@ -46,6 +64,10 @@ public class Library {
 
   public void addNewBook(Book newBook) {
     availableBooks.add(newBook);
+  }
+
+  public void addNewMovie(Movie newMovie) {
+    availableMovies.add(newMovie);
   }
 
   public void checkoutBook(String title) {

@@ -35,7 +35,7 @@ public class InputHandler {
 
   public String handleListBooks() {
     String buffer = "Books available for loan:\n";
-    for (Book book : lib.listAvailableBooks()) {
+    for (Book book : lib.getAvailableBooks()) {
       String bookDetails = book.getTitle() + " by " +
           book.getAuthor() +
           " (" + book.getYear() +")\n";

@@ -20,19 +20,36 @@ public class LibraryTest {
     lib.addNewBook(new Book("A Game of Thrones", "George R. R. Martin", 1996));
     lib.addNewBook(new Book("Blink: The Power of Thinking Without Thinking", "Malcolm Gladwell", 2005));
     lib.addNewBook(new Book("The 5 Love Languages", "Gary Chapman", 1995));
+
+    // new
+    lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
+    lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
   }
 
   @Test
   public void listAllBooksInLibrary() {
-    assertTrue(lib.listAvailableBooks().size() == 6);
-    assertTrue(lib.listLoanedBooks().size() == 0);
+    assertTrue(lib.getAvailableBooks().size() == 6);
+    assertTrue(lib.getLoanedBooks().size() == 0);
+  }
+
+  @Test
+  public void listAllMoviesInLibrary() {
+    assertTrue(lib.getAllMovies().size() == 2);
+    assertTrue(lib.getLoanedMovies().size() == 0);
   }
 
   @Test
   public void addNewBookToLibrary() {
     Book newBook = new Book("This is a new book", "me", 2016);
     lib.addNewBook(newBook);
-    assertTrue(lib.listAllBooks().contains(newBook));
+    assertTrue(lib.getAllBooks().contains(newBook));
+  }
+
+  @Test
+  public void addNewMovieToLibrary() {
+    Movie newMovie = new Movie("This is a new movie", "you", 2016);
+    lib.addNewMovie(newMovie);
+    assertTrue(lib.getAllMovies().contains(newMovie));
   }
 
   @Test
@@ -52,8 +69,8 @@ public class LibraryTest {
   @Test
   public void checkoutBook() {
     lib.checkoutBook("A Game of Thrones");
-    assertEquals(lib.listAvailableBooks().size(), 5);
-    assertEquals(lib.listLoanedBooks().size(), 1);
+    assertEquals(lib.getAvailableBooks().size(), 5);
+    assertEquals(lib.getLoanedBooks().size(), 1);
     assertFalse(lib.isAvailable("A Game of Thrones"));
   }
 
@@ -62,8 +79,8 @@ public class LibraryTest {
     lib.checkoutBook("A Game of Thrones");
     assertFalse(lib.isAvailable("A Game of Thrones"));
     lib.returnBook("A Game of Thrones");
-    assertEquals(lib.listAvailableBooks().size(), 6);
-    assertEquals(lib.listLoanedBooks().size(), 0);
+    assertEquals(lib.getAvailableBooks().size(), 6);
+    assertEquals(lib.getLoanedBooks().size(), 0);
     assertTrue(lib.isAvailable("A Game of Thrones"));
   }
 
