@@ -1,15 +1,15 @@
 package com.twu.biblioteca;
 
 public class BibliotecaApp {
-  private String userCommand = "";
   private InputHandler handler;
   private Helper helper = new Helper();
   private Library library = new Library();
 
 
   public void start() {
+    String userCommand = "";
     initializeLibrary();
-    handler = new InputHandler(library);
+    handler = new InputHandler(library, helper);
 
     System.out.println("Welcome to Biblioteca.\n");
 
