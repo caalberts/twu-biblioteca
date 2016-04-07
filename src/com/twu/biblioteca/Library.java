@@ -3,122 +3,59 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 
 /**
- * Created by albert on 5/4/16.
+ * Created by albert on 7/4/16.
  */
-public class Library {
-  private ArrayList<Book> availableBooks = new ArrayList<Book>();
-  private ArrayList<Book> loanedBooks = new ArrayList<Book>();
+public class Library<T extends InventoryItem> {
+  private ArrayList<T> availableItems = new ArrayList<T>();
+  private ArrayList<T> loanedItems = new ArrayList<T>();
 
-  private ArrayList<Movie> availableMovies = new ArrayList<Movie>();
-  private ArrayList<Movie> loanedMovies = new ArrayList<Movie>();
-
-  public ArrayList<Book> getAvailableBooks() {
-    return availableBooks;
+  public ArrayList<T> getAvailableItems() {
+    return availableItems;
   }
 
-  public ArrayList<Book> getLoanedBooks() {
-    return loanedBooks;
+  public ArrayList<T> getLoanedItems() {
+    return loanedItems;
   }
 
-  public ArrayList<Book> getAllBooks() {
-    ArrayList<Book> allBooks = new ArrayList<Book>();
-    allBooks.addAll(availableBooks);
-    allBooks.addAll(loanedBooks);
-    return allBooks;
+  public ArrayList<T> getAllItems() {
+    ArrayList<T> allItems = new ArrayList<T>();
+    allItems.addAll(availableItems);
+    allItems.addAll(loanedItems);
+    return allItems;
   }
 
-  public ArrayList<Movie> getAvailableMovies() {
-    return availableMovies;
+  public boolean isItemAvailable(String title) {
+    T item = findItemByTitle(title);
+    return availableItems.contains(item);
   }
 
-  public ArrayList<Movie> getLoanedMovies() {
-    return loanedMovies;
+  public boolean isItemLoaned(String title) {
+    T item = findItemByTitle(title);
+    return loanedItems.contains(item);
   }
 
-  public ArrayList<Movie> getAllMovies() {
-    ArrayList<Movie> allMovies = new ArrayList<Movie>();
-    allMovies.addAll(availableMovies);
-    allMovies.addAll(loanedMovies);
-    return allMovies;
-  }
-
-  public boolean isBookAvailable(String title) {
-    Book book = findBookByTitle(title);
-    return availableBooks.contains(book);
-  }
-
-  public boolean isMovieAvailable(String title) {
-    Movie movie = findMovieByTitle(title);
-    return availableMovies.contains(movie);
-  }
-
-  public boolean isBookLoaned(String title) {
-    Book book = findBookByTitle(title);
-    return loanedBooks.contains(book);
-  }
-
-  public boolean isMovieLoaned(String title) {
-    Movie movie = findMovieByTitle(title);
-    return loanedMovies.contains(movie);
-  }
-
-  public Book findBookByTitle(String title) {
-    for (Book book : getAllBooks()) {
-      if (book.getTitle().equals(title)) {
-        return book;
+  public T findItemByTitle(String title) {
+    for (T item : getAllItems()) {
+      if (item.getTitle().equals(title)) {
+        return item;
       }
     }
     return null;
   }
 
-  public Movie findMovieByTitle(String title) {
-    for (Movie movie : getAllMovies()) {
-      if (movie.getTitle().equals(title)) {
-        return movie;
-      }
-    }
-    return null;
+  public void addNewItem(T newItem) {
+    availableItems.add(newItem);
   }
 
-  public InventoryItem findItemByTitle(String title) {
-    for (InventoryItem movie : getAllMovies()) {
-      if (movie.getTitle().equals(title)) return movie;
-    }
-    for (InventoryItem book: getAllBooks()) {
-      if (book.getTitle().equals(title)) return book;
-    }
-    return null;
+  public void checkoutItem(String title) {
+    T item = findItemByTitle(title);
+    availableItems.remove(availableItems.indexOf(item));
+    loanedItems.add(item);
   }
 
-  public void addNewBook(Book newBook) {
-    availableBooks.add(newBook);
-  }
-
-  public void addNewMovie(Movie newMovie) {
-    availableMovies.add(newMovie);
-  }
-
-  public void checkoutBook(String title) {
-    Book book = findBookByTitle(title);
-    availableBooks.remove(availableBooks.indexOf(book));
-    loanedBooks.add(book);
-  }
-
-  public void checkoutMovie(String title) {
-    Movie movie = findMovieByTitle(title);
-    availableMovies.remove(availableMovies.indexOf(movie));
-    loanedMovies.add(movie);
-  }
-
-  public void returnBook(String title) {
-    Book book = findBookByTitle(title);
-    loanedBooks.remove(loanedBooks.indexOf(book));
-    availableBooks.add(book);
-  }
-
-  public void returnMovie(String title) {
-    Movie movie = findMovieByTitle(title);
-    loanedMovies.remove(loanedMovies.indexOf(movie));
-    availableMovies.add(movie);
+  public void returnItem(String title) {
+    T item = findItemByTitle(title);
+    loanedItems.remove(loanedItems.indexOf(item));
+    availableItems.add(item);
   }
 }

@@ -11,7 +11,8 @@ import static org.junit.Assert.*;
  * Created by albert on 6/4/16.
  */
 public class InputHandlerTest {
-  Library lib;
+  Library<Book> bookLib;
+  Library<Movie> movieLib;
   InputHandler handler;
   Helper helper;
   User user;
@@ -19,17 +20,18 @@ public class InputHandlerTest {
 
   @Before
   public void prepareTest() {
-    lib = new Library();
+    bookLib = new Library<>();
+    movieLib = new Library<>();
     helper = new Helper();
     user = new User("John Doe", "john@doe.com", 87654321, 123456, "password");
     userList = new ArrayList<User>();
     userList.add(user);
 
-    lib.addNewBook(new Book("Head First Java", "Kathy Sierra", 2005));
-    lib.addNewBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
-    lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
-    lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
-    handler = new InputHandler(lib, helper, true, user, userList);
+    bookLib.addNewItem(new Book("Head First Java", "Kathy Sierra", 2005));
+    bookLib.addNewItem(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
+    movieLib.addNewItem(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
+    movieLib.addNewItem(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
+    handler = new InputHandler(bookLib, movieLib, helper, true, user, userList);
   }
 
   @Test

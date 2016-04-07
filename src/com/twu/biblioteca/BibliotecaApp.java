@@ -1,12 +1,12 @@
 package com.twu.biblioteca;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BibliotecaApp {
   private InputHandler handler;
   private Helper helper = new Helper();
-  private Library library = new Library();
+  private Library<Book> bookLibrary = new Library<>();
+  private Library<Movie> movieLibrary = new Library<>();
   private ArrayList<User> userList = new ArrayList<User>();
   private boolean isLoggedIn = false;
   private User user = null;
@@ -19,7 +19,7 @@ public class BibliotecaApp {
     System.out.println("Welcome to Biblioteca.\n");
 
     while (!userCommand.equals("Quit")) {
-      handler = new InputHandler(library, helper, isLoggedIn, user, userList);
+      handler = new InputHandler(bookLibrary, movieLibrary, helper, isLoggedIn, user, userList);
       ArrayList<String> options = showOptions(isLoggedIn);
       String prompt = "How can I help you?\n" +
           "Type any of the following commands:\n";
@@ -58,15 +58,15 @@ public class BibliotecaApp {
   }
 
   private void initializeLibrary() {
-    library.addNewBook(new Book("Head First Java", "Kathy Sierra", 2005));
-    library.addNewBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
-    library.addNewBook(new Book("Test Driven Development", "Kent Beck", 2002));
-    library.addNewBook(new Book("A Game of Thrones", "George R. R. Martin", 1996));
-    library.addNewBook(new Book("Blink: The Power of Thinking Without Thinking", "Malcolm Gladwell", 2005));
-    library.addNewBook(new Book("The 5 Love Languages", "Gary Chapman", 1995));
+    bookLibrary.addNewItem(new Book("Head First Java", "Kathy Sierra", 2005));
+    bookLibrary.addNewItem(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
+    bookLibrary.addNewItem(new Book("Test Driven Development", "Kent Beck", 2002));
+    bookLibrary.addNewItem(new Book("A Game of Thrones", "George R. R. Martin", 1996));
+    bookLibrary.addNewItem(new Book("Blink: The Power of Thinking Without Thinking", "Malcolm Gladwell", 2005));
+    bookLibrary.addNewItem(new Book("The 5 Love Languages", "Gary Chapman", 1995));
 
-    library.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
-    library.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
+    movieLibrary.addNewItem(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
+    movieLibrary.addNewItem(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
   }
 
   private void initializeUserList() {

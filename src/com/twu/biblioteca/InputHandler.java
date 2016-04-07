@@ -7,13 +7,15 @@ import java.util.ArrayList;
  */
 public class InputHandler {
   private Helper helper;
-  private Library lib;
+  private Library<Book> bookLib;
+  private Library<Movie> movieLib;
   private User currentUser;
   private ArrayList<User> userList;
   private boolean loggedIn;
 
-  InputHandler(Library library, Helper help, boolean isLoggedIn, User person, ArrayList<User> allUsers) {
-    lib = library;
+  InputHandler(Library<Book> bookLibrary, Library<Movie> movieLibrary, Helper help, boolean isLoggedIn, User person, ArrayList<User> allUsers) {
+    bookLib = bookLibrary;
+    movieLib = movieLibrary;
     helper = help;
     loggedIn = isLoggedIn;
     currentUser = person;
@@ -60,7 +62,7 @@ public class InputHandler {
 
   public String handleListBooks() {
     String buffer = "Books available for loan:\n";
-    for (Book book : lib.getAvailableBooks()) {
+    for (Book book : bookLib.getAvailableItems()) {
       String bookDetails = book.getTitle() + " written by " +
           book.getAuthor() +
           " (" + book.getYear() +")\n";
@@ -72,7 +74,7 @@ public class InputHandler {
 
   public String handleListMovies() {
     String buffer = "Movies available for loan:\n";
-    for (Movie movie : lib.getAvailableMovies()) {
+    for (Movie movie : movieLib.getAvailableItems()) {
       String movieDetails = movie.getTitle() + " directed by " +
           movie.getDirector() +
           " (" + movie.getYear() + ")\n";
@@ -92,8 +94,8 @@ public class InputHandler {
   }
 
   public String handleCheckoutMovie(String checkoutMovieTitle) {
-    if (lib.isMovieAvailable(checkoutMovieTitle)) {
-      lib.checkoutMovie(checkoutMovieTitle);
+    if (movieLib.isItemAvailable(checkoutMovieTitle)) {
+      movieLib.checkoutItem(checkoutMovieTitle);
       return "Thank you, enjoy the movie.";
     } else {
       return "That movie is not available.";
@@ -101,8 +103,8 @@ public class InputHandler {
   }
 
   public String handleReturnBook(String returnBookTitle) {
-    if (lib.isBookLoaned(returnBookTitle)) {
-      lib.returnBook(returnBookTitle);
+    if (bookLib.isItemLoaned(returnBookTitle)) {
+      bookLib.returnItem(returnBookTitle);
       return "Thank you for returning the book.";
     } else {
       return "That is not a valid book to return.";
@@ -110,8 +112,8 @@ public class InputHandler {
   }
 
   public String handleReturnMovie(String returnMovieTitle) {
-    if (lib.isMovieLoaned(returnMovieTitle)) {
-      lib.returnMovie(returnMovieTitle);
+    if (movieLib.isItemLoaned(returnMovieTitle)) {
+      movieLib.returnItem(returnMovieTitle);
       return "Thank you for returning the movie.";
     } else {
       return "That is not a valid movie to return.";
