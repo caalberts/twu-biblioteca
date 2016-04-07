@@ -101,4 +101,18 @@ public class LibraryTest {
     assertEquals(movie.getDirector(), "Quentin Tarantino");
     assertEquals(movie.getYear(), 1992);
   }
+
+  // TODO find book or movie as inventory item. Can it be returned as Book or Movie?
+  @Test
+  public void findInventoryByTitle() {
+    InventoryItem movie = lib.findItemByTitle("Reservoir Dogs");
+    assertTrue(movie instanceof InventoryItem);
+    assertTrue(movie instanceof Movie);
+    assertFalse(movie instanceof Book);
+
+    InventoryItem book = lib.findItemByTitle("A Game of Thrones");
+    assertTrue(book instanceof InventoryItem);
+    assertFalse(book instanceof Movie);
+    assertTrue(book instanceof Book);
+  }
 }

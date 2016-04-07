@@ -76,6 +76,16 @@ public class Library {
     return null;
   }
 
+  public InventoryItem findItemByTitle(String title) {
+    for (InventoryItem movie : getAllMovies()) {
+      if (movie.getTitle().equals(title)) return movie;
+    }
+    for (InventoryItem book: getAllBooks()) {
+      if (book.getTitle().equals(title)) return book;
+    }
+    return null;
+  }
+
   public void addNewBook(Book newBook) {
     availableBooks.add(newBook);
   }
