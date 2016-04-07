@@ -51,6 +51,7 @@ public class LibraryTest {
     assertTrue(lib.getAllMovies().contains(newMovie));
   }
 
+  // TODO check availability of movie or book as inventory item
   @Test
   public void checkIfBookIsAvailable() {
     assertTrue(lib.isBookAvailable("A Game of Thrones"));
@@ -71,11 +72,26 @@ public class LibraryTest {
   }
 
   @Test
+  public void checkIfMovieIsLoaned() {
+    lib.checkoutMovie("Reservoir Dogs");
+    assertTrue(lib.isMovieLoaned("Reservoir Dogs"));
+    assertFalse(lib.isMovieLoaned("Star Wars: The Force Awakens"));
+  }
+
+  @Test
   public void checkoutBook() {
     lib.checkoutBook("A Game of Thrones");
     assertEquals(lib.getAvailableBooks().size(), 5);
     assertEquals(lib.getLoanedBooks().size(), 1);
     assertFalse(lib.isBookAvailable("A Game of Thrones"));
+  }
+
+  @Test
+  public void checkoutMovie() {
+    lib.checkoutMovie("Reservoir Dogs");
+    assertEquals(lib.getAvailableMovies().size(), 1);
+    assertEquals(lib.getLoanedMovies().size(), 1);
+    assertFalse(lib.isMovieAvailable("Reservoir Dogs"));
   }
 
   @Test

@@ -18,7 +18,8 @@ public class BibliotecaApp {
           "Type any of the following commands:\n" +
           "1. 'List Books'\n" +
           "2. 'List Movies'\n" +
-          "3. 'Checkout'\n" +
+          "3. 'Checkout Book'\n" +
+          "4. 'Checkout Movie'\n" +
           "4. 'Return'\n" +
           "5. 'Quit'\n";
       userCommand = helper.getUserInput(prompt);

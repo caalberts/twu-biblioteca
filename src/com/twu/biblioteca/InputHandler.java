@@ -21,11 +21,14 @@ public class InputHandler {
       case "List Movies":
         output = handleListMovies();
         break;
-      case "Checkout":
-        output = handleCheckout(helper.getUserInput("Which book would you like to borrow?"));
+      case "Checkout Book":
+        output = handleCheckoutBook(helper.getUserInput("Which book would you like to borrow?"));
+        break;
+      case "Checkout Movie":
+        output = handleCheckoutMovie(helper.getUserInput("Which movie would you like to borrow?"));
         break;
       case "Return":
-        output = handleReturn(helper.getUserInput("Which book would you like to return?"));
+        output = handleReturnBook(helper.getUserInput("Which book would you like to return?"));
         break;
       case "Quit":
         output = "";
@@ -60,7 +63,7 @@ public class InputHandler {
     return buffer;
   }
 
-  public String handleCheckout(String checkoutBookTitle) {
+  public String handleCheckoutBook(String checkoutBookTitle) {
     if (lib.isBookAvailable(checkoutBookTitle)) {
       lib.checkoutBook(checkoutBookTitle);
       return "Thank you, enjoy the book.";
@@ -69,7 +72,16 @@ public class InputHandler {
     }
   }
 
-  public String handleReturn(String returnBookTitle) {
+  public String handleCheckoutMovie(String checkoutMovieTitle) {
+    if (lib.isMovieAvailable(checkoutMovieTitle)) {
+      lib.checkoutMovie(checkoutMovieTitle);
+      return "Thank you, enjoy the movie.";
+    } else {
+      return "That movie is not available.";
+    }
+  }
+
+  public String handleReturnBook(String returnBookTitle) {
     if (lib.isBookLoaned(returnBookTitle)) {
       lib.returnBook(returnBookTitle);
       return "Thank you for returning the book.";

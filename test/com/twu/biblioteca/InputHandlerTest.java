@@ -49,17 +49,23 @@ public class InputHandlerTest {
 
   @Test
   public void checkoutBook() {
-    handler.process("List Books");
-    assertEquals(handler.handleCheckout("Head First Java"), "Thank you, enjoy the book.");
-    assertEquals(handler.handleCheckout("Missing Book"), "That book is not available.");
+    assertEquals(handler.handleCheckoutBook("Head First Java"), "Thank you, enjoy the book.");
+    assertEquals(handler.handleCheckoutBook("Head First Java"), "That book is not available.");
+    assertEquals(handler.handleCheckoutBook("Missing Book"), "That book is not available.");
+  }
+
+  @Test
+  public void checkoutMovie() {
+    assertEquals(handler.handleCheckoutMovie("Reservoir Dogs"), "Thank you, enjoy the movie.");
+    assertEquals(handler.handleCheckoutMovie("Reservoir Dogs"), "That movie is not available.");
+    assertEquals(handler.handleCheckoutMovie("Missing Movie"), "That movie is not available.");
   }
 
   @Test
   public void returnBook() {
-    handler.process("List Books");
-    assertEquals(handler.handleCheckout("Head First Java"), "Thank you, enjoy the book.");
-    assertEquals(handler.handleReturn("Head First Java"), "Thank you for returning the book.");
-    assertEquals(handler.handleReturn("A Game of Thrones"), "That is not a valid book to return.");
+    assertEquals(handler.handleCheckoutBook("Head First Java"), "Thank you, enjoy the book.");
+    assertEquals(handler.handleReturnBook("Head First Java"), "Thank you for returning the book.");
+    assertEquals(handler.handleReturnBook("A Game of Thrones"), "That is not a valid book to return.");
   }
 
   @Test

@@ -58,6 +58,11 @@ public class Library {
     return loanedBooks.contains(book);
   }
 
+  public boolean isMovieLoaned(String title) {
+    Movie movie = findMovieByTitle(title);
+    return loanedMovies.contains(movie);
+  }
+
   public Book findBookByTitle(String title) {
     for (Book book : getAllBooks()) {
       if (book.getTitle().equals(title)) {
@@ -98,6 +103,12 @@ public class Library {
     Book book = findBookByTitle(title);
     availableBooks.remove(availableBooks.indexOf(book));
     loanedBooks.add(book);
+  }
+
+  public void checkoutMovie(String title) {
+    Movie movie = findMovieByTitle(title);
+    availableMovies.remove(availableMovies.indexOf(movie));
+    loanedMovies.add(movie);
   }
 
   public void returnBook(String title) {
