@@ -40,20 +40,21 @@ public class MovieLibraryTest {
 
   @Test
   public void MovieIsNotAvailableIfLoaned() {
-    lib.checkoutItem("Reservoir Dogs");
+    lib.checkoutItem("Reservoir Dogs", 123456);
     assertFalse(lib.isItemAvailable("Reservoir Dogs"));
   }
 
   @Test
   public void checkIfMovieIsLoaned() {
-    lib.checkoutItem("Reservoir Dogs");
+    lib.checkoutItem("Reservoir Dogs", 123456);
     assertTrue(lib.isItemLoaned("Reservoir Dogs"));
     assertFalse(lib.isItemLoaned("Star Wars: The Force Awakens"));
   }
 
   @Test
   public void checkoutMovie() {
-    lib.checkoutItem("Reservoir Dogs");
+    lib.checkoutItem("Reservoir Dogs", 123456);
+    assertEquals(lib.identifyBorrower("Reservoir Dogs"), 123456);
     assertEquals(lib.getAvailableItems().size(), 1);
     assertEquals(lib.getLoanedItems().size(), 1);
     assertFalse(lib.isItemAvailable("Reservoir Dogs"));
@@ -61,12 +62,14 @@ public class MovieLibraryTest {
 
   @Test
   public void returnMovie() {
-    lib.checkoutItem("Reservoir Dogs");
+    lib.checkoutItem("Reservoir Dogs", 123456);
     assertFalse(lib.isItemAvailable("Reservoir Dogs"));
+    assertEquals(lib.identifyBorrower("Reservoir Dogs"), 123456);
     lib.returnItem("Reservoir Dogs");
     assertEquals(lib.getAvailableItems().size(), 2);
     assertEquals(lib.getLoanedItems().size(), 0);
     assertTrue(lib.isItemAvailable("Reservoir Dogs"));
+    assertEquals(lib.identifyBorrower("Reservoir Dogs"), 0);
   }
 
   @Test

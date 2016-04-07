@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by albert on 7/4/16.
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class Library<T extends InventoryItem> {
   private ArrayList<T> availableItems = new ArrayList<T>();
   private ArrayList<T> loanedItems = new ArrayList<T>();
+  private HashMap<String, Integer> loanRegister = new HashMap<>();
 
   public ArrayList<T> getAvailableItems() {
     return availableItems;
@@ -47,15 +49,22 @@ public class Library<T extends InventoryItem> {
     availableItems.add(newItem);
   }
 
-  public void checkoutItem(String title) {
+  public void checkoutItem(String title, int libraryNumber) {
     T item = findItemByTitle(title);
     availableItems.remove(availableItems.indexOf(item));
     loanedItems.add(item);
+    loanRegister.put(title, libraryNumber);
   }
 
   public void returnItem(String title) {
     T item = findItemByTitle(title);
     loanedItems.remove(loanedItems.indexOf(item));
     availableItems.add(item);
+    loanRegister.remove(title);
+  }
+
+  public int identifyBorrower(String title) {
+    if (loanRegister.get(title) != null) return loanRegister.get(title);
+    return 0;
   }
 }

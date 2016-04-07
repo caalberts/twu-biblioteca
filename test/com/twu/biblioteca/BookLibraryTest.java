@@ -43,28 +43,30 @@ public class BookLibraryTest {
 
   @Test
   public void bookIsNotAvailableIfLoaned() {
-    lib.checkoutItem("A Game of Thrones");
+    lib.checkoutItem("A Game of Thrones", 123456);
     assertFalse(lib.isItemAvailable("A Game of Thrones"));
   }
 
   @Test
   public void checkIfBookIsLoaned() {
-    lib.checkoutItem("A Game of Thrones");
+    lib.checkoutItem("A Game of Thrones", 123456);
     assertTrue(lib.isItemLoaned("A Game of Thrones"));
     assertFalse(lib.isItemLoaned("Test Driven Development"));
   }
 
   @Test
   public void checkoutItem() {
-    lib.checkoutItem("A Game of Thrones");
+    lib.checkoutItem("A Game of Thrones", 123456);
     assertEquals(lib.getAvailableItems().size(), 5);
     assertEquals(lib.getLoanedItems().size(), 1);
+    assertEquals(lib.identifyBorrower("A Game of Thrones"), 123456);
     assertFalse(lib.isItemAvailable("A Game of Thrones"));
   }
 
   @Test
   public void returnItem() {
-    lib.checkoutItem("A Game of Thrones");
+    lib.checkoutItem("A Game of Thrones", 123456);
+    assertEquals(lib.identifyBorrower("A Game of Thrones"), 123456);
     assertFalse(lib.isItemAvailable("A Game of Thrones"));
     assertEquals(lib.getAvailableItems().size(), 5);
     assertEquals(lib.getLoanedItems().size(), 1);
@@ -72,6 +74,7 @@ public class BookLibraryTest {
     assertEquals(lib.getAvailableItems().size(), 6);
     assertEquals(lib.getLoanedItems().size(), 0);
     assertTrue(lib.isItemAvailable("A Game of Thrones"));
+    assertEquals(lib.identifyBorrower("A Game of Thrones"), 0);
   }
 
   @Test

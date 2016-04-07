@@ -77,7 +77,7 @@ public class InputHandler {
 
   public String handleCheckoutBook(String checkoutBookTitle) {
     if (bookLib.isItemAvailable(checkoutBookTitle)) {
-      bookLib.checkoutItem(checkoutBookTitle);
+      bookLib.checkoutItem(checkoutBookTitle, currentUser.getLibraryNumber());
       return "Thank you, enjoy the book.";
     } else {
       return "That book is not available.";
@@ -86,7 +86,7 @@ public class InputHandler {
 
   public String handleCheckoutMovie(String checkoutMovieTitle) {
     if (movieLib.isItemAvailable(checkoutMovieTitle)) {
-      movieLib.checkoutItem(checkoutMovieTitle);
+      movieLib.checkoutItem(checkoutMovieTitle, currentUser.getLibraryNumber());
       return "Thank you, enjoy the movie.";
     } else {
       return "That movie is not available.";
