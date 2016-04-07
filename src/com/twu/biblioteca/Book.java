@@ -6,7 +6,7 @@ package com.twu.biblioteca;
 public class Book extends InventoryItem {
   private String author;
 
-  Book(String bookTitle, String bookAuthor, int bookYear) {
+  public Book(String bookTitle, String bookAuthor, int bookYear) {
     super(bookTitle, bookYear);
     author = bookAuthor;
   }
