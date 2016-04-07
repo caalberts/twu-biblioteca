@@ -5,9 +5,10 @@ import java.util.ArrayList;
 public class BibliotecaApp {
   private InputHandler handler;
   private Helper helper = new Helper();
+  private Authenticator auth;
   private Library<Book> bookLibrary = new Library<>();
   private Library<Movie> movieLibrary = new Library<>();
-  private ArrayList<User> userList = new ArrayList<User>();
+  private ArrayList<User> userList = new ArrayList<>();
   private boolean isLoggedIn = false;
   private User user = null;
 
@@ -19,7 +20,8 @@ public class BibliotecaApp {
     System.out.println("Welcome to Biblioteca.\n");
 
     while (!userCommand.equals("Quit")) {
-      handler = new InputHandler(bookLibrary, movieLibrary, helper, isLoggedIn, user, userList);
+      handler = new InputHandler(bookLibrary, movieLibrary, helper, user);
+
       ArrayList<String> options = showOptions(isLoggedIn);
       String prompt = "How can I help you?\n" +
           "Type any of the following commands:\n";
@@ -31,8 +33,25 @@ public class BibliotecaApp {
 
       userCommand = helper.getUserInput(prompt);
 
-      String output = handler.process(userCommand);
-      System.out.println(output);
+      if (userCommand.equals("Log In")) {
+        String libNumber = helper.getUserInput("Enter your library number");
+        String password = helper.getUserInput("Enter your password");
+        auth = new Authenticator(libNumber, password, userList);
+        if (auth.findUser() != null) {
+          if (auth.isSuccessfulLogin()) {
+            user = auth.findUser();
+            isLoggedIn = true;
+            System.out.println("You're logged in");
+          } else {
+            System.out.println("Wrong password");
+          }
+        } else {
+          System.out.println("Library number is not found");
+        }
+      } else {
+        String output = handler.process(userCommand);
+        System.out.println(output);
+      }
     }
     return;
   }

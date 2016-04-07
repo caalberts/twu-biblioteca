@@ -10,16 +10,12 @@ public class InputHandler {
   private Library<Book> bookLib;
   private Library<Movie> movieLib;
   private User currentUser;
-  private ArrayList<User> userList;
-  private boolean loggedIn;
 
-  InputHandler(Library<Book> bookLibrary, Library<Movie> movieLibrary, Helper help, boolean isLoggedIn, User person, ArrayList<User> allUsers) {
+  InputHandler(Library<Book> bookLibrary, Library<Movie> movieLibrary, Helper help, User person) {
     bookLib = bookLibrary;
     movieLib = movieLibrary;
     helper = help;
-    loggedIn = isLoggedIn;
     currentUser = person;
-    userList = allUsers;
   }
 
   public String process (String input) {
@@ -45,11 +41,6 @@ public class InputHandler {
         break;
       case "View Profile":
         output = handleViewProfile();
-        break;
-      case "Log In":
-        String libNumber = helper.getUserInput("Enter your library number");
-        String password = helper.getUserInput("Enter your password");
-        output = handleLogIn(libNumber, password);
         break;
       case "Quit":
         output = "";
@@ -85,8 +76,8 @@ public class InputHandler {
   }
 
   public String handleCheckoutBook(String checkoutBookTitle) {
-    if (lib.isBookAvailable(checkoutBookTitle)) {
-      lib.checkoutBook(checkoutBookTitle);
+    if (bookLib.isItemAvailable(checkoutBookTitle)) {
+      bookLib.checkoutItem(checkoutBookTitle);
       return "Thank you, enjoy the book.";
     } else {
       return "That book is not available.";
@@ -118,20 +109,6 @@ public class InputHandler {
     } else {
       return "That is not a valid movie to return.";
     }
-  }
-
-  public String handleLogIn(String libraryNumber, String password) {
-    for (User user : userList) {
-      if (user.getLibraryNumber() == Integer.parseInt(libraryNumber, 10)) {
-        if (user.getPassword().equals(password)) {
-          currentUser = user;
-          loggedIn = true;
-          return "You're logged in";
-        }
-        else return "Wrong password";
-      }
-    }
-    return "Library number is not found";
   }
 
   public String handleViewProfile() {
