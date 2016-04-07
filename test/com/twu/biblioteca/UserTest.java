@@ -9,10 +9,12 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
   @Test
-  public void userHasNameEmailPhone(){
-    User user = new User("John Doe", "john@doe.com", 87654321);
+  public void userHasNameEmailPhoneLibNumberPassword(){
+    User user = new User("John Doe", "john@doe.com", 87654321, 123456, "password");
     assertEquals(user.getName(), "John Doe");
     assertEquals(user.getEmail(), "john@doe.com");
     assertEquals(user.getPhone(), 87654321);
+    assertEquals(user.getLibraryNumber(), 123456);
+    assertEquals(user.getPassword(), "password");
   }
 }

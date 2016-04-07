@@ -1,17 +1,23 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
+
 /**
  * Created by albert on 6/4/16.
  */
 public class InputHandler {
   private Helper helper;
   private Library lib;
-  private User user;
+  private User currentUser;
+  private ArrayList<User> userList;
+  private boolean loggedIn;
 
-  InputHandler(Library library, Helper help, User person) {
+  InputHandler(Library library, Helper help, boolean isLoggedIn, User person, ArrayList<User> allUsers) {
     lib = library;
     helper = help;
-    user = person;
+    loggedIn = isLoggedIn;
+    currentUser = person;
+    userList = allUsers;
   }
 
   public String process (String input) {
@@ -37,6 +43,11 @@ public class InputHandler {
         break;
       case "View Profile":
         output = handleViewProfile();
+        break;
+      case "Log In":
+        String libNumber = helper.getUserInput("Enter your library number");
+        String password = helper.getUserInput("Enter your password");
+        output = handleLogIn(libNumber, password);
         break;
       case "Quit":
         output = "";
@@ -107,10 +118,24 @@ public class InputHandler {
     }
   }
 
+  public String handleLogIn(String libraryNumber, String password) {
+    for (User user : userList) {
+      if (user.getLibraryNumber() == Integer.parseInt(libraryNumber, 10)) {
+        if (user.getPassword().equals(password)) {
+          currentUser = user;
+          loggedIn = true;
+          return "You're logged in";
+        }
+        else return "Wrong password";
+      }
+    }
+    return "Library number is not found";
+  }
+
   public String handleViewProfile() {
-    String buffer = "Name: " + user.getName() + "\n" +
-                    "Email: " + user.getEmail() + "\n" +
-                    "Phone: " + user.getPhone();
+    String buffer = "Name: " + currentUser.getName() + "\n" +
+                    "Email: " + currentUser.getEmail() + "\n" +
+                    "Phone: " + currentUser.getPhone();
     return buffer;
   }
 }

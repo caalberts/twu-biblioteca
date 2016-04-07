@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -13,17 +15,21 @@ public class InputHandlerTest {
   InputHandler handler;
   Helper helper;
   User user;
+  ArrayList<User> userList;
 
   @Before
   public void prepareTest() {
     lib = new Library();
     helper = new Helper();
-    user = new User("John Doe", "john@doe.com", 87654321);
+    user = new User("John Doe", "john@doe.com", 87654321, 123456, "password");
+    userList = new ArrayList<User>();
+    userList.add(user);
+
     lib.addNewBook(new Book("Head First Java", "Kathy Sierra", 2005));
     lib.addNewBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
     lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
     lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
-    handler = new InputHandler(lib, helper, user);
+    handler = new InputHandler(lib, helper, true, user, userList);
   }
 
   @Test
@@ -86,6 +92,21 @@ public class InputHandlerTest {
     assertTrue(result.contains("john@doe.com"));
     assertTrue(result.contains("Phone"));
     assertTrue(result.contains("87654321"));
+  }
+
+  @Test
+  public void logInCorrectPassword() {
+    assertEquals(handler.handleLogIn("123456", "password"), "You're logged in");
+  }
+
+  @Test
+  public void logInWrongPassword() {
+    assertEquals(handler.handleLogIn("123456", "secret"), "Wrong password");
+  }
+
+  @Test
+  public void userNotFound() {
+    assertEquals(handler.handleLogIn("12346", "password"), "Library number is not found");
   }
 
   @Test

@@ -1,35 +1,60 @@
 package com.twu.biblioteca;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class BibliotecaApp {
   private InputHandler handler;
   private Helper helper = new Helper();
   private Library library = new Library();
-  private User user = new User("John Doe", "john@doe.com", 87654321);
+  private ArrayList<User> userList = new ArrayList<User>();
+  private boolean isLoggedIn = false;
+  private User user = null;
 
   public void start() {
     String userCommand = "";
     initializeLibrary();
-    handler = new InputHandler(library, helper, user);
+    initializeUserList();
 
     System.out.println("Welcome to Biblioteca.\n");
 
     while (!userCommand.equals("Quit")) {
+      handler = new InputHandler(library, helper, isLoggedIn, user, userList);
+      ArrayList<String> options = showOptions(isLoggedIn);
       String prompt = "How can I help you?\n" +
-          "Type any of the following commands:\n" +
-          "1. 'List Books'\n" +
-          "2. 'List Movies'\n" +
-          "3. 'Checkout Book'\n" +
-          "4. 'Checkout Movie'\n" +
-          "5. 'Return Book'\n" +
-          "6. 'Return Movie'\n" +
-          "7. 'View Profile'\n" +
-          "8. 'Quit'\n";
+          "Type any of the following commands:\n";
+
+      for (int i = 0; i < options.size(); i++) {
+        prompt += Integer.toString(i + 1) + ". " +
+                  "'" + options.get(i) + "'\n";
+      }
+
       userCommand = helper.getUserInput(prompt);
 
       String output = handler.process(userCommand);
       System.out.println(output);
     }
     return;
+  }
+
+  public ArrayList<String> showOptions(boolean isLoggedIn) {
+    ArrayList<String> options = new ArrayList<String>();
+
+    options.add("List Books");
+    options.add("List Movies");
+
+    if (isLoggedIn) {
+      options.add("Checkout Book");
+      options.add("Checkout Movie");
+      options.add("Return Book");
+      options.add("Return Movie");
+      options.add("View Profile");
+    } else {
+      options.add("Log In");
+    }
+    options.add("Quit");
+
+    return options;
   }
 
   private void initializeLibrary() {
@@ -42,5 +67,10 @@ public class BibliotecaApp {
 
     library.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
     library.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
+  }
+
+  private void initializeUserList() {
+    userList.add(new User("John Doe", "john@doe.com", 87654321, 123456, "password"));
+    userList.add(new User("Jane Doe", "jane@doe.com", 91234567, 654321, "secret"));
   }
 }

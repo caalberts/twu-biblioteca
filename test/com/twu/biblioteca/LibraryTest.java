@@ -59,9 +59,21 @@ public class LibraryTest {
   }
 
   @Test
+  public void bookIsNotAvailableIfLoaned() {
+    lib.checkoutBook("A Game of Thrones");
+    assertFalse(lib.isBookAvailable("A Game of Thrones"));
+  }
+
+  @Test
   public void checkIfMovieIsAvailable() {
     assertTrue(lib.isMovieAvailable("Reservoir Dogs"));
     assertFalse(lib.isMovieAvailable("Inglorious Basterds"));
+  }
+
+  @Test
+  public void MovieIsNotAvailableIfLoaned() {
+    lib.checkoutMovie("Reservoir Dogs");
+    assertFalse(lib.isMovieAvailable("Reservoir Dogs"));
   }
 
   @Test

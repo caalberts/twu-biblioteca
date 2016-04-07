@@ -44,13 +44,12 @@ public class Library {
 
   public boolean isBookAvailable(String title) {
     Book book = findBookByTitle(title);
-
-    return availableBooks.contains(book) && !loanedBooks.contains(book);
+    return availableBooks.contains(book);
   }
 
   public boolean isMovieAvailable(String title) {
     Movie movie = findMovieByTitle(title);
-    return availableMovies.contains(movie) && !loanedMovies.contains(movie);
+    return availableMovies.contains(movie);
   }
 
   public boolean isBookLoaned(String title) {
