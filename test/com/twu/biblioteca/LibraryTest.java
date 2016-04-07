@@ -54,34 +54,39 @@ public class LibraryTest {
 
   @Test
   public void checkIfBookIsAvailable() {
-    assertTrue(lib.isAvailable("A Game of Thrones"));
-    assertFalse(lib.isAvailable("A Gme of Thorns"));
+    assertTrue(lib.isBookAvailable("A Game of Thrones"));
+    assertFalse(lib.isBookAvailable("A Gme of Thorns"));
+  }
+
+  @Test
+  public void checkIfMovieIsAvailable() {
+    assertTrue(lib.isMovieAvailable("Reservoir Dogs"));
+    assertFalse(lib.isMovieAvailable("Inglorious Basterds"));
   }
 
   @Test
   public void checkIfBookIsLoaned() {
     lib.checkoutBook("A Game of Thrones");
-    assertTrue(lib.isLoaned("A Game of Thrones"));
-    assertFalse(lib.isLoaned("Test Driven Development"));
+    assertTrue(lib.isBookLoaned("A Game of Thrones"));
+    assertFalse(lib.isBookLoaned("Test Driven Development"));
   }
-
-
+  
   @Test
   public void checkoutBook() {
     lib.checkoutBook("A Game of Thrones");
     assertEquals(lib.getAvailableBooks().size(), 5);
     assertEquals(lib.getLoanedBooks().size(), 1);
-    assertFalse(lib.isAvailable("A Game of Thrones"));
+    assertFalse(lib.isBookAvailable("A Game of Thrones"));
   }
 
   @Test
   public void returnBook() {
     lib.checkoutBook("A Game of Thrones");
-    assertFalse(lib.isAvailable("A Game of Thrones"));
+    assertFalse(lib.isBookAvailable("A Game of Thrones"));
     lib.returnBook("A Game of Thrones");
     assertEquals(lib.getAvailableBooks().size(), 6);
     assertEquals(lib.getLoanedBooks().size(), 0);
-    assertTrue(lib.isAvailable("A Game of Thrones"));
+    assertTrue(lib.isBookAvailable("A Game of Thrones"));
   }
 
   @Test
@@ -89,5 +94,12 @@ public class LibraryTest {
     Book book = lib.findBookByTitle("A Game of Thrones");
     assertEquals(book.getAuthor(), "George R. R. Martin");
     assertEquals(book.getYear(), 1996);
+  }
+
+  @Test
+  public void findAMovieByItsTitle() {
+    Movie movie = lib.findMovieByTitle("Reservoir Dogs");
+    assertEquals(movie.getDirector(), "Quentin Tarantino");
+    assertEquals(movie.getYear(), 1992);
   }
 }

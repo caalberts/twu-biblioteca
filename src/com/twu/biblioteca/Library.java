@@ -42,21 +42,35 @@ public class Library {
     return allMovies;
   }
 
-  public boolean isAvailable(String title) {
+  public boolean isBookAvailable(String title) {
     Book book = findBookByTitle(title);
 
     return availableBooks.contains(book) && !loanedBooks.contains(book);
   }
 
-  public boolean isLoaned(String title) {
+  public boolean isMovieAvailable(String title) {
+    Movie movie = findMovieByTitle(title);
+    return availableMovies.contains(movie) && !loanedMovies.contains(movie);
+  }
+
+  public boolean isBookLoaned(String title) {
     Book book = findBookByTitle(title);
     return loanedBooks.contains(book);
   }
 
-  public Book findBookByTitle (String title) {
+  public Book findBookByTitle(String title) {
     for (Book book : getAllBooks()) {
       if (book.getTitle().equals(title)) {
         return book;
+      }
+    }
+    return null;
+  }
+
+  public Movie findMovieByTitle(String title) {
+    for (Movie movie : getAllMovies()) {
+      if (movie.getTitle().equals(title)) {
+        return movie;
       }
     }
     return null;

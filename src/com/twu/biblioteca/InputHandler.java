@@ -46,7 +46,7 @@ public class InputHandler {
   }
 
   public String handleCheckout(String checkoutBookTitle) {
-    if (lib.isAvailable(checkoutBookTitle)) {
+    if (lib.isBookAvailable(checkoutBookTitle)) {
       lib.checkoutBook(checkoutBookTitle);
       return "Thank you, enjoy the book.";
     } else {
@@ -55,7 +55,7 @@ public class InputHandler {
   }
 
   public String handleReturn(String returnBookTitle) {
-    if (lib.isLoaned(returnBookTitle)) {
+    if (lib.isBookLoaned(returnBookTitle)) {
       lib.returnBook(returnBookTitle);
       return "Thank you for returning the book.";
     } else {
