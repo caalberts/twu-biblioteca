@@ -47,7 +47,7 @@ public class InputHandler {
 
   public String handleCheckout(String checkoutBookTitle) {
     if (lib.isAvailable(checkoutBookTitle)) {
-      lib.checkout(checkoutBookTitle);
+      lib.checkoutBook(checkoutBookTitle);
       return "Thank you, enjoy the book.";
     } else {
       return "That book is not available.";

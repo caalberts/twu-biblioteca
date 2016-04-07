@@ -48,7 +48,7 @@ public class Library {
     availableBooks.add(newBook);
   }
 
-  public void checkout(String title) {
+  public void checkoutBook(String title) {
     Book book = findBookByTitle(title);
     availableBooks.remove(availableBooks.indexOf(book));
     loanedBooks.add(book);

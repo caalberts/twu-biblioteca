@@ -43,7 +43,7 @@ public class LibraryTest {
 
   @Test
   public void checkIfBookIsLoaned() {
-    lib.checkout("A Game of Thrones");
+    lib.checkoutBook("A Game of Thrones");
     assertTrue(lib.isLoaned("A Game of Thrones"));
     assertFalse(lib.isLoaned("Test Driven Development"));
   }
@@ -51,7 +51,7 @@ public class LibraryTest {
 
   @Test
   public void checkoutBook() {
-    lib.checkout("A Game of Thrones");
+    lib.checkoutBook("A Game of Thrones");
     assertEquals(lib.listAvailableBooks().size(), 5);
     assertEquals(lib.listLoanedBooks().size(), 1);
     assertFalse(lib.isAvailable("A Game of Thrones"));
@@ -59,7 +59,7 @@ public class LibraryTest {
 
   @Test
   public void returnBook() {
-    lib.checkout("A Game of Thrones");
+    lib.checkoutBook("A Game of Thrones");
     assertFalse(lib.isAvailable("A Game of Thrones"));
     lib.returnBook("A Game of Thrones");
     assertEquals(lib.listAvailableBooks().size(), 6);
