@@ -18,6 +18,9 @@ public class InputHandler {
       case "List Books":
         output = handleListBooks();
         break;
+      case "List Movies":
+        output = handleListMovies();
+        break;
       case "Checkout":
         output = handleCheckout(helper.getUserInput("Which book would you like to borrow?"));
         break;
@@ -36,10 +39,22 @@ public class InputHandler {
   public String handleListBooks() {
     String buffer = "Books available for loan:\n";
     for (Book book : lib.getAvailableBooks()) {
-      String bookDetails = book.getTitle() + " by " +
+      String bookDetails = book.getTitle() + " written by " +
           book.getAuthor() +
           " (" + book.getYear() +")\n";
       buffer += bookDetails;
+    }
+    buffer += "\n";
+    return buffer;
+  }
+
+  public String handleListMovies() {
+    String buffer = "Movies available for loan:\n";
+    for (Movie movie : lib.getAvailableMovies()) {
+      String movieDetails = movie.getTitle() + " directed by " +
+          movie.getDirector() +
+          " (" + movie.getYear() + ")\n";
+      buffer += movieDetails;
     }
     buffer += "\n";
     return buffer;

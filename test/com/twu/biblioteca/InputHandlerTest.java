@@ -19,6 +19,8 @@ public class InputHandlerTest {
     helper = new Helper();
     lib.addNewBook(new Book("Head First Java", "Kathy Sierra", 2005));
     lib.addNewBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
+    lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
+    lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
     handler = new InputHandler(lib, helper);
   }
 
@@ -32,6 +34,17 @@ public class InputHandlerTest {
     assertTrue(result.contains("Harry Potter and the Philosopher's Stone"));
     assertTrue(result.contains("J. K. Rowling"));
     assertTrue(result.contains("1997"));
+  }
+
+  @Test
+  public void listMovies() {
+    String result = handler.process("List Movies");
+    assertTrue(result.contains("The Force Awakens"));
+    assertTrue(result.contains("J. J. Abrams"));
+    assertTrue(result.contains("2015"));
+    assertTrue(result.contains("Reservoir Dogs"));
+    assertTrue(result.contains("Quentin Tarantino"));
+    assertTrue(result.contains("1992"));
   }
 
   @Test

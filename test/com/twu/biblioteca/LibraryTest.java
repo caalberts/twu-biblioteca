@@ -21,7 +21,6 @@ public class LibraryTest {
     lib.addNewBook(new Book("Blink: The Power of Thinking Without Thinking", "Malcolm Gladwell", 2005));
     lib.addNewBook(new Book("The 5 Love Languages", "Gary Chapman", 1995));
 
-    // new
     lib.addNewMovie(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
     lib.addNewMovie(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
   }
@@ -70,7 +69,7 @@ public class LibraryTest {
     assertTrue(lib.isBookLoaned("A Game of Thrones"));
     assertFalse(lib.isBookLoaned("Test Driven Development"));
   }
-  
+
   @Test
   public void checkoutBook() {
     lib.checkoutBook("A Game of Thrones");
