@@ -116,4 +116,10 @@ public class Library {
     loanedBooks.remove(loanedBooks.indexOf(book));
     availableBooks.add(book);
   }
+
+  public void returnMovie(String title) {
+    Movie movie = findMovieByTitle(title);
+    loanedMovies.remove(loanedMovies.indexOf(movie));
+    availableMovies.add(movie);
+  }
 }

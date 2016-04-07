@@ -69,6 +69,13 @@ public class InputHandlerTest {
   }
 
   @Test
+  public void returnMovie() {
+    assertEquals(handler.handleCheckoutMovie("Reservoir Dogs"), "Thank you, enjoy the movie.");
+    assertEquals(handler.handleReturnMovie("Reservoir Dogs"), "Thank you for returning the movie.");
+    assertEquals(handler.handleReturnMovie("Inglorious Basterds"), "That is not a valid movie to return.");
+  }
+
+  @Test
   public void invalidOption() {
     assertEquals(handler.process("InvalidOption"), "Select a valid option!");
   }

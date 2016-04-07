@@ -98,9 +98,21 @@ public class LibraryTest {
   public void returnBook() {
     lib.checkoutBook("A Game of Thrones");
     assertFalse(lib.isBookAvailable("A Game of Thrones"));
+    assertEquals(lib.getAvailableBooks().size(), 5);
+    assertEquals(lib.getLoanedBooks().size(), 1);
     lib.returnBook("A Game of Thrones");
     assertEquals(lib.getAvailableBooks().size(), 6);
     assertEquals(lib.getLoanedBooks().size(), 0);
+    assertTrue(lib.isBookAvailable("A Game of Thrones"));
+  }
+
+  @Test
+  public void returnMovie() {
+    lib.checkoutMovie("Reservoir Dogs");
+    assertFalse(lib.isMovieAvailable("Reservoir Dogs"));
+    lib.returnMovie("Reservoir Dogs");
+    assertEquals(lib.getAvailableMovies().size(), 2);
+    assertEquals(lib.getLoanedMovies().size(), 0);
     assertTrue(lib.isBookAvailable("A Game of Thrones"));
   }
 

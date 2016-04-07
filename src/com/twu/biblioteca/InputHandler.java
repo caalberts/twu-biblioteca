@@ -27,8 +27,11 @@ public class InputHandler {
       case "Checkout Movie":
         output = handleCheckoutMovie(helper.getUserInput("Which movie would you like to borrow?"));
         break;
-      case "Return":
+      case "Return Book":
         output = handleReturnBook(helper.getUserInput("Which book would you like to return?"));
+        break;
+      case "Return Movie":
+        output = handleReturnMovie(helper.getUserInput("Which movie would you like to return?"));
         break;
       case "Quit":
         output = "";
@@ -87,6 +90,15 @@ public class InputHandler {
       return "Thank you for returning the book.";
     } else {
       return "That is not a valid book to return.";
+    }
+  }
+
+  public String handleReturnMovie(String returnMovieTitle) {
+    if (lib.isMovieLoaned(returnMovieTitle)) {
+      lib.returnMovie(returnMovieTitle);
+      return "Thank you for returning the movie.";
+    } else {
+      return "That is not a valid movie to return.";
     }
   }
 }

@@ -20,8 +20,9 @@ public class BibliotecaApp {
           "2. 'List Movies'\n" +
           "3. 'Checkout Book'\n" +
           "4. 'Checkout Movie'\n" +
-          "4. 'Return'\n" +
-          "5. 'Quit'\n";
+          "5. 'Return Book'\n" +
+          "6. 'Return Movie'\n" +
+          "7. 'Quit'\n";
       userCommand = helper.getUserInput(prompt);
 
       String output = handler.process(userCommand);
