@@ -1,20 +1,16 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-
 /**
  * Created by albert on 6/4/16.
  */
 public class InputHandler {
-  private Helper helper;
   private Library<Book> bookLib;
   private Library<Movie> movieLib;
   private User currentUser;
 
-  InputHandler(Library<Book> bookLibrary, Library<Movie> movieLibrary, Helper help, User person) {
+  InputHandler(Library<Book> bookLibrary, Library<Movie> movieLibrary, User person) {
     bookLib = bookLibrary;
     movieLib = movieLibrary;
-    helper = help;
     currentUser = person;
   }
 
@@ -28,19 +24,19 @@ public class InputHandler {
         output = handleListMovies();
         break;
       case "Checkout Book":
-        output = handleCheckoutBook(helper.getUserInput("Which book would you like to borrow?"));
+        output = (currentUser != null) ? (Helper.getUserInput("Which book would you like to borrow?")) : "Please log in before checking out a book.";
         break;
       case "Checkout Movie":
-        output = handleCheckoutMovie(helper.getUserInput("Which movie would you like to borrow?"));
+        output = (currentUser != null) ? handleCheckoutMovie(Helper.getUserInput("Which movie would you like to borrow?")) : "Please log in before checking out a movie.";
         break;
       case "Return Book":
-        output = handleReturnBook(helper.getUserInput("Which book would you like to return?"));
+        output = (currentUser != null) ? handleReturnBook(Helper.getUserInput("Which book would you like to return?")) : "Please log in before returning a book.";
         break;
       case "Return Movie":
-        output = handleReturnMovie(helper.getUserInput("Which movie would you like to return?"));
+        output = (currentUser != null) ? handleReturnMovie(Helper.getUserInput("Which movie would you like to return?")) : "Please log in before returning a movie.";
         break;
       case "View Profile":
-        output = handleViewProfile();
+        output = (currentUser != null) ? handleViewProfile() : "Please log in before viewing profile.";
         break;
       case "Quit":
         output = "";

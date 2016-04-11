@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class BibliotecaApp {
   private InputHandler handler;
-  private Helper helper = new Helper();
   private Authenticator auth;
   private Library<Book> bookLibrary = new Library<>();
   private Library<Movie> movieLibrary = new Library<>();
@@ -20,7 +19,7 @@ public class BibliotecaApp {
     System.out.println("Welcome to Biblioteca.\n");
 
     while (!userCommand.equals("Quit")) {
-      handler = new InputHandler(bookLibrary, movieLibrary, helper, user);
+      handler = new InputHandler(bookLibrary, movieLibrary, user);
 
       ArrayList<String> options = showOptions(isLoggedIn);
       String prompt = "How can I help you?\n" +
@@ -31,11 +30,11 @@ public class BibliotecaApp {
                   "'" + options.get(i) + "'\n";
       }
 
-      userCommand = helper.getUserInput(prompt);
+      userCommand = Helper.getUserInput(prompt);
 
       if (userCommand.equals("Log In")) {
-        String libNumber = helper.getUserInput("Enter your library number");
-        String password = helper.getUserInput("Enter your password");
+        String libNumber = Helper.getUserInput("Enter your library number");
+        String password = Helper.getUserInput("Enter your password");
         auth = new Authenticator(libNumber, password, userList);
         if (auth.findUser() != null) {
           if (auth.isSuccessfulLogin()) {

@@ -28,7 +28,7 @@ public class InputHandlerTest {
     bookLib.addNewItem(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
     movieLib.addNewItem(new Movie("Star Wars: The Force Awakens", "J. J. Abrams", 2015));
     movieLib.addNewItem(new Movie("Reservoir Dogs", "Quentin Tarantino", 1992));
-    handler = new InputHandler(bookLib, movieLib, helper, user);
+    handler = new InputHandler(bookLib, movieLib, user);
   }
 
   @Test
@@ -91,6 +91,26 @@ public class InputHandlerTest {
     assertTrue(result.contains("john@doe.com"));
     assertTrue(result.contains("Phone"));
     assertTrue(result.contains("87654321"));
+  }
+
+  @Test
+  public void requireLoginBeforeCheckout() {
+    handler = new InputHandler(bookLib, movieLib, null);
+    assertEquals("Please log in before checking out a book.", handler.process("Checkout Book"));
+    assertEquals("Please log in before checking out a movie.", handler.process("Checkout Movie"));
+  }
+
+  @Test
+  public void requireLoginBeforeReturn() {
+    handler = new InputHandler(bookLib, movieLib, null);
+    assertEquals("Please log in before returning a book.", handler.process("Return Book"));
+    assertEquals("Please log in before returning a movie.", handler.process("Return Movie"));
+  }
+
+  @Test
+  public void requireLoginBeforeViewingProfile() {
+    handler = new InputHandler(bookLib, movieLib, null);
+    assertEquals("Please log in before viewing profile.", handler.process("View Profile"));
   }
 
   @Test

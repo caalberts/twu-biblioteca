@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
  * Created by albert on 5/4/16.
  */
 public class Helper {
-  public String getUserInput(String prompt) {
+  public static String getUserInput(String prompt) {
     String inputLine = null;
     System.out.print(prompt + " ");
 

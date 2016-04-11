@@ -19,6 +19,7 @@ public class AuthenticatorTest {
   public void prepareTest() {
     authUser = new User("John Doe", "john@doe.com", 87654321, 123456, "password");
     userList = new ArrayList<>();
+    userList.add(new User("Jane Doe", "jane@doe.com", 98765432, 654321, "secret"));
     userList.add(authUser);
   }
 
