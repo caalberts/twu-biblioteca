@@ -19,10 +19,8 @@ public class Authenticator {
 
   public boolean isSuccessfulLogin() {
     for (User user : userList) {
-      if (user.getLibraryNumber() == Integer.parseInt(libraryNumber, 10)) {
-        if (user.getPassword().equals(password)) {
-          return true;
-        }
+      if (isUserRegistered(user) && isPasswordValid(user)) {
+        return true;
       }
     }
     return false;
@@ -35,5 +33,12 @@ public class Authenticator {
       }
     }
     return null;
+  }
+
+  private boolean isUserRegistered(User user) {
+    return user.getLibraryNumber() == Integer.parseInt(libraryNumber, 10);
+  }
+  private boolean isPasswordValid(User user) {
+    return user.getPassword().equals(password);
   }
 }
